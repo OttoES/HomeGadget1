@@ -1,0 +1,43 @@
+{
+    "tasks": [
+    {
+      "class":"HAGtask",
+      "name": "Open home gate",
+      "confirm":  "Confirm to open gate?",
+      "conditions": [
+         {
+           "class":    "COND_DAILY_TIME_WINDOW",
+           "name":     "Date time",
+           "startHour":16,
+           "startMinute":30,
+           "endHour":  18,
+           "endMinute":  0
+         },
+         {
+           "class":    "COND_EVENT_BLE",
+           "name":     "Gate mote",
+           "ID":       "123",
+           "signalMax": -10,
+           "signalMin": -84
+         }
+      ],
+      "actions": [
+         {
+           "class":    "ACT_BEEP",
+           "name":     "Show toast msg",
+           "msg":      "Event triggered!"
+         },
+         {
+           "class":    "ACT_PLAY_AUDIO",
+           "name":     "Play msg",
+           "file":     "tst.mp3"
+         },
+         {
+           "class":    "ACT_BLE_TOGGLE_RELAY",
+           "name":     "Gate opener",
+           "ID":       "123"
+         }
+      ]
+    }
+    ]
+}
