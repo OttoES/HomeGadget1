@@ -20,5 +20,10 @@ android {
 }
 
 dependencies {
+    compile project(':android-beacon-library')
+    //compile 'org.altbeacon:android-beacon-library:2+@aar'
+
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'de.greenrobot:eventbus:2.4.0'
+
 }

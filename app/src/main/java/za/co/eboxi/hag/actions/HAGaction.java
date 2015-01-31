@@ -1,12 +1,9 @@
 package za.co.eboxi.hag.actions;
 
 import android.content.Context;
-import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import za.co.eboxi.hag.HAGapplication;
 
 /**
  * Created by John2 on 2015/01/02.
@@ -19,7 +16,10 @@ public class HAGaction {
         ACT_BEEP,
         ACT_TOAST_MSG,
         ACT_PLAY_AUDIO,
-        ACT_BLE_TOGGLE_RELAY
+        ACT_BLE_TOGGLE_RELAY,
+        ACT_MSG_DIALOG,
+        ACT_WAKE_DIALOG,
+        ACT_DIALOG
     }
     private static final String JSON_TAG_CLASS_NAME = "class";
     private static final String JSON_TAG_DESCRIPTION_NAME = "name";
@@ -34,13 +34,27 @@ public class HAGaction {
         try {
             String className = jobj.optString(JSON_TAG_CLASS_NAME);
             switch (JSON_ACT_CLASS_NAMES.valueOf(className)) {
+                case ACT_BEEP:
+                    ret = new HAGactionBeep();
+                    ret.Load(jobj);
+                    break;
+                case ACT_PLAY_AUDIO:
+                    ret = new HAGactionPlayAudio();
+                    ret.Load(jobj);
+                    break;
                 case ACT_DEFAULT:
                 case ACT_TOAST_MSG:
-                case ACT_PLAY_AUDIO:
+//                    ret = new HAGaction();
+//                    ret.Load(jobj);
+//                    break;
+                case ACT_MSG_DIALOG:
+//                    ret = new HAGactionMsgDialog();
+//                    ret.Load(jobj);
+//                    break;
+                default: // just an empty event
                     ret = new HAGaction();
                     ret.Load(jobj);
                     break;
-
 
             } // switch
 
@@ -50,7 +64,7 @@ public class HAGaction {
         return ret;
     }
 
-    // will in mot cases be over ridden to load the class details
+    // will in most cases be over ridden to load the class details
     public void Load(JSONObject jobj) throws JSONException {
         name = jobj.optString(JSON_TAG_DESCRIPTION_NAME, "none");
         msg  = jobj.optString(JSON_TAG_TOAST_MSG,"No message defined");
@@ -95,7 +109,7 @@ public class HAGaction {
 //    }
 
 
-    public boolean Execute() {
+    public boolean Execute(Context context) {
         // here you can start an activity or service depending on your need
         // for ex you can start an activity to vibrate phone or to ring the phone
 
@@ -104,8 +118,8 @@ public class HAGaction {
 //            SmsManager sms = SmsManager.getDefault();
 //            sms.sendTextMessage(phoneNumberReciver, null, message, null, null);
         // Show the toast  like in above screen shot
-        Context context = HAGapplication.getAppContext();
-        Toast.makeText(context, "Event Triggered", Toast.LENGTH_LONG).show();
+//        Context context = HAGapplication.getAppContext();
+//        Toast.makeText(context, "Event Triggered", Toast.LENGTH_LONG).show();
         return true;
     }
 

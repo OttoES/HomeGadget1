@@ -1,43 +1,140 @@
 {
     "tasks": [
     {
-      "class":"HAGtask",
-      "name": "Open home gate",
-      "confirm":  "Confirm to open gate?",
-      "conditions": [
-         {
-           "class":    "COND_DAILY_TIME_WINDOW",
-           "name":     "Date time",
-           "startHour":16,
-           "startMinute":30,
-           "endHour":  18,
-           "endMinute":  0
-         },
-         {
-           "class":    "COND_EVENT_BLE",
-           "name":     "Gate mote",
-           "ID":       "123",
-           "signalMax": -10,
-           "signalMin": -84
-         }
-      ],
-      "actions": [
-         {
-           "class":    "ACT_BEEP",
-           "name":     "Show toast msg",
-           "msg":      "Event triggered!"
-         },
-         {
-           "class":    "ACT_PLAY_AUDIO",
-           "name":     "Play msg",
-           "file":     "tst.mp3"
-         },
-         {
-           "class":    "ACT_BLE_TOGGLE_RELAY",
-           "name":     "Gate opener",
-           "ID":       "123"
-         }
-      ]
+           "class":"HAGtask",
+           "name": "Dark blue",
+           "confirm":  "Confirm to open gate?",
+           "minDelay": 15,
+           "conditions": [
+              {
+                "class":    "COND_DAILY_TIME_WINDOW",
+                "name":     "Date time",
+                "startHour":6,
+                "startMinute":30,
+                "endHour":  18,
+                "endMinute":  0
+              },
+              {
+                "class":    "COND_EVENT_BLE_RANGE",
+                "name":     "Dark blue mote",
+                "ID":       "DD:FE:FC:DD:13:D2",
+                "signalMax": -10,
+                "signalMin": -65
+              }
+           ],
+           "actions": [
+              {
+                "class":    "ACT_BEEP",
+                "name":     "Show toast msg",
+                "msg":      "Event triggered!"
+              },
+             {
+               "class":    "ACT_PLAY_AUDIO",
+               "name":     "Play msg",
+               "file":     "/sdcard/VoiceRecorder/my_sounds/voice3.3gp"
+             },
+              {
+                "class":    "ACT_MSG_DIALOG",
+                "name":     "Report trigger",
+                "msg" :     "BLE beacon detected",
+                "prompt":     "OK"
+              },
+              {
+                "class":    "ACT_WAKE_DIALOG",
+                "name":     "Confirm open door",
+                "msg" :     "Open front door",
+                "posPrompt":     "Open",
+                "negPrompt":     "Cancel"
+              },
+              {
+                "class":    "ACT_BLE_TOGGLE_RELAY",
+                "name":     "Gate opener",
+                "ID":       "123"
+              }
+           ]
+    },
+
+    {
+          "class":"HAGtask",
+          "name": "Open home gate",
+          "confirm":  "Confirm to open gate?",
+          "minDelay": 15,
+          "conditions": [
+             {
+               "class":    "COND_DAILY_TIME_WINDOW",
+               "name":     "Date time",
+               "startHour":6,
+               "startMinute":30,
+               "endHour":  18,
+               "endMinute":  0
+             },
+             {
+               "class":    "COND_EVENT_BLE_RANGE",
+               "name":     "Light blue",
+               "ID":       "C9:1D:C6:41:01:FF",
+               "signalMax": -10,
+               "signalMin": -61
+             }
+          ],
+          "actions": [
+                 {
+                   "class":    "ACT_PLAY_AUDIO",
+                   "name":     "Play msg",
+                   "file":     "/sdcard/VoiceRecorder/my_sounds/beacon2.3gp"
+                 }
+          ]
+    },
+    {
+          "class":"HAGtask",
+          "name": "Estimote3",
+          "confirm":  "",
+          "minDelay": 15,
+          "conditions": [
+             {
+               "class":    "COND_EVENT_BLE_RANGE",
+               "name":     "Gate mote",
+               "ID":       "E9:03:B6:C1:F3:53",
+               "signalMax": -10,
+               "signalMin": -69
+             }
+          ],
+          "actions": [
+                 {
+                   "class":    "ACT_PLAY_AUDIO",
+                   "name":     "Play msg",
+                   "file":     "/sdcard/VoiceRecorder/my_sounds/voice4.3gp"
+                 }
+          ]
+    },
+    {
+          "class":"HAGtask",
+          "name": "Between estimotes",
+          "confirm":  "",
+          "minDelay": 180,
+          "conditions": [
+             {
+               "class":    "COND_EVENT_BLE_RANGE",
+               "name":     "Light ",
+               "ID":       "E9:03:B6:C1:F3:53",
+               "signalMax": -64,
+               "signalMin": -80
+              },
+              {
+                "class":    "COND_EVENT_BLE_RANGE",
+                "name":     "Light blue",
+                "ID":       "C9:1D:C6:41:01:FF",
+                "signalMax": -70,
+                "signalMin": -80
+            }
+          ],
+          "actions": [
+                 {
+                   "class":    "ACT_PLAY_AUDIO",
+                   "name":     "Play msg",
+                   "file":     "/sdcard/VoiceRecorder/my_sounds/inbetween.3gp"
+                 }
+          ]
     }
+
     ]
 }

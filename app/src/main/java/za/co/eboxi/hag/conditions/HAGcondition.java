@@ -16,7 +16,7 @@ public abstract class HAGcondition {
 
     private enum JSON_CLASS_NAMES
     {
-        COND_SUSPEND_TYPE,  COND_DAILY_TIME_WINDOW, COND_EVENT_BLE;
+        COND_SUSPEND_TYPE,  COND_DAILY_TIME_WINDOW, COND_EVENT_BLE, COND_EVENT_BLE_RANGE;
     }
     private static final String JSON_TAG_CLASS_NAME = "class";
 
@@ -35,6 +35,10 @@ public abstract class HAGcondition {
                     break;
                 case COND_EVENT_BLE:
                     ret = new HAGcondEventTriggered();
+                    ret.Load(jobj);
+                    break;
+                case COND_EVENT_BLE_RANGE:
+                    ret = new HAGcondBLErange();
                     ret.Load(jobj);
                     break;
 

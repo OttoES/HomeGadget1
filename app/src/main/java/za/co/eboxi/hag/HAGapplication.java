@@ -9,6 +9,7 @@ import android.content.Context;
 public class HAGapplication  extends Application {
 
     private static Context context;
+    public static HAGtask[]  mTasks;
 
     public void onCreate(){
         super.onCreate();

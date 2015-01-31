@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="za.co.eboxi.homegadgets" >
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <application
         android:name="za.co.eboxi.hag.HAGapplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+
         <activity
             android:name=".HAGactivity"
             android:label="@string/app_name" >
@@ -19,7 +20,18 @@
         </activity>
 
         <service
+            android:name="za.co.eboxi.ble.BluetoothLeScanService2"
+            android:label="BleScanService"
+            android:exported="true"
+            android:enabled="true">
+        </service>
+        <service
             android:name=".HAGTaskService"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
+        <service
+            android:name="za.co.eboxi.homegadgets.HAGaudioService"
             android:enabled="true"
             android:exported="true" >
         </service>

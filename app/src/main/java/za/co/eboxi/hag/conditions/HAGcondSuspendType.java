@@ -11,8 +11,9 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.GregorianCalendar;
+import java.util.Calendar;
 
+import de.greenrobot.event.EventBus;
 import za.co.eboxi.hag.HAGapplication;
 
 /**
@@ -29,6 +30,7 @@ public class HAGcondSuspendType extends HAGcondition {
     private int startMinute;
     private int endHour;
     private int endMinute;
+    //private boolean isInTimeLimits = false;
 
 
     @Override
@@ -42,8 +44,17 @@ public class HAGcondSuspendType extends HAGcondition {
     }
 
     @Override
-    public boolean Evaluate() {
-        return false;
+    public boolean Evaluate()
+    {
+        // check if the current time is within the limits
+        Calendar cal = Calendar.getInstance();
+        int h = cal.get(Calendar.HOUR_OF_DAY);
+        int m = cal.get(Calendar.MINUTE);
+        if ((h<startHour) ) return false;
+        if ((h==startHour) && (m<startMinute)) return false;
+        if ((h==endHour) && (m>endMinute)) return false;
+        if ((h>endHour) ) return false;
+        return true;
     }
 
     private PendingIntent alarmIntent;
@@ -77,7 +88,7 @@ public class HAGcondSuspendType extends HAGcondition {
         // i.e. 24*60*60*1000= 86,400,000   milliseconds in a day
         //Long time = new GregorianCalendar().getTimeInMillis()+24*60*60*1000;
         // 20 sec from now
-        Long time = new GregorianCalendar().getTimeInMillis()+20*1000;
+        //Long time = new GregorianCalendar().getTimeInMillis()+20*1000;
 
         // create an Intent and set the class which will execute when Alarm triggers, here we have
         // given AlarmReciever in the Intent, the onRecieve() method of this class will execute when
@@ -95,19 +106,17 @@ public class HAGcondSuspendType extends HAGcondition {
         alarmIntent = PendingIntent.getBroadcast(context, 0, intentAlarm, 0);
 
         alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                SystemClock.elapsedRealtime() +   20 * 1000, alarmIntent);
+                SystemClock.elapsedRealtime() +   5 * 1000, alarmIntent);
 
     }
 
-    public static class AlarmReceiver extends BroadcastReceiver
+    public static  class AlarmReceiver extends BroadcastReceiver
     {
         //public AlarmReceiver()     {  }
 
         @Override
         public void onReceive(Context context, Intent intent)
         {
-            // TODO Auto-generated method stub
-
 
             // here you can start an activity or service depending on your need
             // for ex you can start an activity to vibrate phone or to ring the phone
@@ -117,7 +126,8 @@ public class HAGcondSuspendType extends HAGcondition {
 //            SmsManager sms = SmsManager.getDefault();
 //            sms.sendTextMessage(phoneNumberReciver, null, message, null, null);
             // Show the toast  like in above screen shot
-            Toast.makeText(context, "Alarm Triggered and SMS Sent", Toast.LENGTH_LONG).show();
+            //Toast.makeText(context, "Alarm Triggered and SMS Sent", Toast.LENGTH_LONG).show();
+            EventBus.getDefault().post(new HAGeventMsg());
             //mParentTask.ReevaluateConditions();
 
         }
