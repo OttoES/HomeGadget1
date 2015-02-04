@@ -19,7 +19,7 @@
                 "name":     "Dark blue mote",
                 "ID":       "DD:FE:FC:DD:13:D2",
                 "signalMax": -10,
-                "signalMin": -65
+                "signalMin": -68
               }
            ],
            "actions": [
@@ -73,7 +73,7 @@
                "name":     "Light blue",
                "ID":       "C9:1D:C6:41:01:FF",
                "signalMax": -10,
-               "signalMin": -61
+               "signalMin": -69
              }
           ],
           "actions": [
@@ -95,7 +95,7 @@
                "name":     "Gate mote",
                "ID":       "E9:03:B6:C1:F3:53",
                "signalMax": -10,
-               "signalMin": -69
+               "signalMin": -72
              }
           ],
           "actions": [
@@ -116,15 +116,15 @@
                "class":    "COND_EVENT_BLE_RANGE",
                "name":     "Light ",
                "ID":       "E9:03:B6:C1:F3:53",
-               "signalMax": -64,
-               "signalMin": -80
+               "signalMax": -40,
+               "signalMin": -50
               },
               {
                 "class":    "COND_EVENT_BLE_RANGE",
                 "name":     "Light blue",
                 "ID":       "C9:1D:C6:41:01:FF",
-                "signalMax": -70,
-                "signalMin": -80
+                "signalMax": -40,
+                "signalMin": -50
             }
           ],
           "actions": [

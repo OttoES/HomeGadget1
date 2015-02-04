@@ -83,6 +83,7 @@ public class HAGcondBLErange extends HAGcondition {
                  lastDetectedTime = evt.time;
                  Log.i("HAGcondBLErange", "BLE event received " + evt.id);
                  //ReevaluateConditions();
+                 EventBus.getDefault().post(new HAGeventMsg());
              }
         }
     }

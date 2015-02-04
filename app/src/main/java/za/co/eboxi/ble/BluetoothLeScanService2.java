@@ -23,7 +23,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import de.greenrobot.event.EventBus;
-import za.co.eboxi.hag.conditions.HAGeventMsg;
 
 ///import com.thedamfr.android.BleEventAdapter.BleEventBus;
 ///import com.thedamfr.android.BleEventAdapter.events.DiscoveredDevicesEvent;
@@ -32,7 +31,7 @@ import za.co.eboxi.hag.conditions.HAGeventMsg;
 
 
 public class BluetoothLeScanService2 extends Service {
-    private static final long SCAN_PERIOD = 100000;
+    private static final long SCAN_PERIOD = 150000;
     //private BleEventBus mBleEventBus;
     private EventBus mBleEventBus;
     private Set<BluetoothDevice> mBluetoothDevices = new HashSet<BluetoothDevice>();
@@ -128,7 +127,8 @@ public class BluetoothLeScanService2 extends Service {
                         mBleEventBus.post(new BLEscanDeviceFoundEvent(name,device.getAddress(),rssi,t));
                         //stopScan();
                         //connect(device.getName());
-                        EventBus.getDefault().post(new HAGeventMsg());
+                        // kick of re-evaluation of conditions
+                        //EventBus.getDefault().post(new HAGeventMsg());
                     }
                     else {
                         Log.w("BLE= ", name + " " + device.getAddress());
